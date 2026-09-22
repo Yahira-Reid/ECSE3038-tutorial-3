@@ -36,6 +36,7 @@ def get_devices():
 def get_hottest():
     return hottest(readings)
 
+#task 3
 @app.get("/devices/online")
 def get_online_devices():
     online_devices = []
@@ -43,3 +44,12 @@ def get_online_devices():
         if device["online"]:
             online_devices.append(device)
     return online_devices
+
+# task 4
+@app.get("/devices/{name}")
+def get_device(name: str):
+    for device in readings:
+        if device["name"] == name:
+            return device
+
+    raise HTTPException(status_code=404, detail=f"No device called {name}")
